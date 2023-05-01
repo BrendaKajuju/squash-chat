@@ -1,7 +1,11 @@
 import React from 'react'
 import { GoogleOutlined, FacebookOutlined} from "@ant-design/icons"
- //creating the login in page for the application//
-export const Login = () => {
+import "firebase/app";
+
+import { auth } from '../components/Firebase';
+import firebase from 'firebase/app';
+
+const Login = () => {
   return (
     <div id="login-page">
        <div id="login-card">
@@ -9,6 +13,7 @@ export const Login = () => {
               
           <div
            className="login-button google"
+           onClick={() => auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider())}
           >
             <GoogleOutlined /> Sign In with Google
           </div>
@@ -16,10 +21,13 @@ export const Login = () => {
           <br /> <br />
 
           <div className="login-button facebook"
+          onClick={() => auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider())}
           >
-            <FacebookOutlined /> Sign In with FaceBook
+            <FacebookOutlined /> Sign In with Facebook
           </div>
        </div>
     </div>
   );
 }
+
+export default Login;
