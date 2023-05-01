@@ -1,7 +1,10 @@
 import React from 'react'
 import { GoogleOutlined, FacebookOutlined} from "@ant-design/icons"
- //creating the login in page for the application//
-export const Login = () => {
+import "firebase/app";
+
+import { auth } from '../firebase';
+
+const Login = () => {
   return (
     <div id="login-page">
        <div id="login-card">
