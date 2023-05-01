@@ -22,5 +22,6 @@ const value = { user };
 return (
     <AuthenticationContext.Provider value={value}>
         {/* Show children components when not loading */}
+        {!loading && children}
     </AuthenticationContext.Provider>
 )};
