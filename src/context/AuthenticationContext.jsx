@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { auth } from "../components/Firebase/auth";
+import { auth } from "../components/Firebase";
 
 const AuthenticationContext = React.createContext();
 export const useAuth = () => useContext(AuthenticationContext);
@@ -25,3 +25,4 @@ return (
         {!loading && children}
     </AuthenticationContext.Provider>
 )};
+  export default AuthenticationContext ;
