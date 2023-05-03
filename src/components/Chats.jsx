@@ -2,9 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ChatEngine } from "react-chat-engine";
 import { auth } from "../components/Firebase";
+import { useAuth } from "../context/AuthenticationContext"
 
 const Chats = () => {
     const navigate = useNavigate();
+    const { user } = useAuth();
+    console.log (user)
 
     const handleLogout = async () => {
         await auth.signOut();

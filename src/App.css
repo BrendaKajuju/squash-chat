@@ -19,7 +19,7 @@
 .nav-bar {
   width: 100%;
   height: 66px;
-  background-color: #002766;
+  background-color: hsl(345, 44%, 42%);
 }
 
 .logo-tab {
@@ -47,7 +47,7 @@
 /* Login Page */
 
 #login-page {
-  background-image: linear-gradient(#40a9ff, #096dd9);
+  background-image: linear-gradient(#9b40ad, #E8B3B3);
   position: absolute;
   top: 0px;
   bottom: 0px;
