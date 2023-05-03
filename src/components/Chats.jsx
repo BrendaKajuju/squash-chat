@@ -18,11 +18,10 @@ const Chats = () => {
                 <div className="logo-tab">
                     Squash-Chat
                 </div>
-                  <div onClick={handleLogout} className="Logout-tab">
+                  <div className="logout-tab" onClick={handleLogout}>
                     Logout
                   </div>
             </div>
-
 
             <ChatEngine
                 height="calc(100vh - 66px)"
