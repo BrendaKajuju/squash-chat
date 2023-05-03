@@ -1,27 +1,27 @@
-import { useHistory, useState, useEffect } from 'react'
-import {BrowserRouter  as Router, Switch, Route } from "react-router-dom"
+import { useNavigate, useState, useEffect } from 'react'
+import {BrowserRouter  as Router, Routes, Route } from "react-router-dom"
 import './App.css'
 import { AuthenticationProvider } from './context/AuthenticationContext'
 import Login from "./components/Login"
-import Chat from './components/Chat'
+import Chat from './components/Chats'
 
 // Tasks;
 //   1. import context component
 
 // import Login from "./components/Login"
 
-// import Chats from "./components/Chats"
+import Chats from "./components/Chats"
 
 function App() {
   return (
  <div>
   <Router>
     <AuthenticationProvider>
-      <switch>
+      <Routes>
       {/* //render either one of the components below */}
-      <Route path="/" component={Chat} />
+      <Route path="/" component={Chats} />
       <Route path="/" component={Login} />
-      </switch>
+    </Routes>
     </AuthenticationProvider>
   </Router>
  </div>

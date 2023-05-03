@@ -1,15 +1,15 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ChatEngine } from "react-chat-engine";
 import { auth } from "../components/Firebase";
 
 const Chats = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         await auth.signOut();
         
-        history.push('/');
+        navigate.push('/');
     }
 
     return (
