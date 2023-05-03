@@ -2,9 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ChatEngine } from "react-chat-engine";
 import { auth } from "../components/Firebase";
+import { useAuth } from "../context/AuthenticationContext"
 
 const Chats = () => {
     const navigate = useNavigate();
+    const { user } = useAuth();
+    console.log (user)
 
     const handleLogout = async () => {
         await auth.signOut();
@@ -18,11 +21,10 @@ const Chats = () => {
                 <div className="logo-tab">
                     Squash-Chat
                 </div>
-                  <div onClick={handleLogout} className="Logout-tab">
+                  <div className="logout-tab" onClick={handleLogout}>
                     Logout
                   </div>
             </div>
-
 
             <ChatEngine
                 height="calc(100vh - 66px)"
