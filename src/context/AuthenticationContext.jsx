@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { auth } from "../components/Firebase/auth";
+import { useNavigate } from 'react-router-dom';
+import { auth } from "../components/Firebase";
 
 const AuthenticationContext = React.createContext();
 export const useAuth = () => useContext(AuthenticationContext);
@@ -8,15 +8,15 @@ export const useAuth = () => useContext(AuthenticationContext);
 export const AuthenticationProvider = ({ children }) => {
  const [loading, setLoading] = useState(true);
  const [user, setUser] = useState ({})
- const history = useHistory();
+ const navigate = useNavigate();
 
  useEffect(() => {
     auth.onAuthStateChanged((user) => {
         setUser(user);
         setLoading(false);
-        history.push('/chats')
+        navigate('/chats')
     })
- }, [user, history]);
+ }, [user, navigate]);
 
 const value = { user };
 return (
@@ -25,3 +25,4 @@ return (
         {!loading && children}
     </AuthenticationContext.Provider>
 )};
+  export default AuthenticationContext ;
