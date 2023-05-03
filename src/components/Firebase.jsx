@@ -1,11 +1,11 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 
-export const auth = firebase.initializeApp({
-    apiKey: "AIzaSyCPccRYBo1NWws1_3m1_53lg74QCiZ-yPI",
-    authDomain: "squash-chat-24ddb.firebaseapp.com",
-    projectId: "squash-chat-24ddb",
-    storageBucket: "squash-chat-24ddb.appspot.com",
-    messagingSenderId: "566127988388",
-    appId: "1:566127988388:web:fd639f51159170dd486031"
-  }).auth();
+export const auth = firebase.initializeApp({ 
+  apiKey : "AIzaSyC0E-02TjWbHG-tjeQLZfhOHrTkMXCsQ8Q" , 
+  authDomain : "squash-a7346.firebaseapp.com" , 
+  projectId : "squash-a7346" , 
+  storageBucket : "squash-a7346.appspot.com" , 
+  messagingSenderId : "80246627901" , 
+  appId : "1:80246627901:web:5afcd6858b2f7a8ff91454" 
+}).auth();
