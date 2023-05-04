@@ -1,28 +1,84 @@
-import React, {useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ChatEngine } from "react-chat-engine";
 import { auth } from "../components/Firebase";
+import { useAuth } from "../context/AuthenticationContext";
+import axios from "axios";
 
-const AuthenticationContext = React.createContext();
-export const useAuth = () => useContext(AuthenticationContext);
+const Chats = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
 
-export const AuthenticationProvider = ({ children }) => {
- const [loading, setLoading] = useState(true);
- const [user, setUser] = useState (null)
- const navigate = useNavigate();
+  const handleLogout = async () => {
+    await auth.signOut();
+    navigate("/");
+  };
 
- useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-        setUser(user);
+  const getFile = async (url) => {
+    const response = await fetch(url);
+    const data = await response.blob();
+
+    return new File([data], "userPhoto.jpg", { type: "image/jpeg" });
+  };
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+      return;
+    }
+
+    axios
+      .get("https://api.chatengine.io/users/me", {
+        headers: {
+          "project-id": "YOUR_PROJECT_ID",
+          "user-name": user.email,
+          "user-secret": user.uid,
+        },
+      })
+      .then(() => {
         setLoading(false);
-        if (user) navigate('/chats')
-    })
- }, [user, navigate]);
+      })
+      .catch(() => {
+        let formdata = new FormData();
+        formdata.append("email", user.email);
+        formdata.append("username", user.email);
+        formdata.append("secret", user.uid);
 
-const value = { user };
-return (
-    <AuthenticationContext.Provider value={value}>
-        {/* Show children components when not loading */}
-        {!loading && children}
-    </AuthenticationContext.Provider>
-)};
-  export default AuthenticationContext ;
+        getFile(user.photoURL).then((avatar) => {
+          formdata.append("avatar", avatar, avatar.name);
+          axios
+            .post(
+              "https://api.chatengine.io/users",
+              formdata,
+              {
+                headers: { "private-key": "YOUR_PRIVATE_KEY" },
+              }
+            )
+            .then(() => setLoading(false))
+            .catch((error) => console.log(error));
+        });
+      });
+  }, [user, navigate]);
+
+  if (!user || loading) return "Loading";
+  return (
+    <div className="chats-page">
+      <div className="nav-bar">
+        <div className="logo-tab">Squash-Chat</div>
+        <div className="logout-tab" onClick={handleLogout}>
+          Logout
+        </div>
+      </div>
+
+      <ChatEngine
+        height="calc(100vh - 66px)"
+        projectID="YOUR_PROJECT_ID"
+        userName={user.email}
+        userSecret={user.uid}
+      />
+    </div>
+  );
+};
+
+export default Chats;
