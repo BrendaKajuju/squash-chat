@@ -1,29 +1,26 @@
-import { useHistory, useState, useEffect } from 'react'
-import {BrowserRouter  as Router, Switch, Route } from "react-router-dom"
+import { useNavigate, useState, useEffect } from 'react'
+import {BrowserRouter  as Router, Routes, Route } from "react-router-dom"
 import './App.css'
 import { AuthenticationProvider } from './context/AuthenticationContext'
 import Login from "./components/Login"
-import Chat from './components/Chat'
-
-// Tasks;
-//   1. import context component
-//   2. import login component
-//   3. import chat component
+import Chats from "./components/Chats"
 
 function App() {
   return (
- <div>
-  <Router>
-    <AuthenticationProvider>
-      <switch>
-      {/* //render either one of the components below */}
-      <Route path="/" component={Chat} />
-      <Route path="/" component={Login} />
-      </switch>
-    </AuthenticationProvider>
-  </Router>
- </div>
+    <div>
+      <Router>
+        <AuthenticationProvider>
+          <Routes>
+            {/* Render either one of the components below */}
+            <Route path="/" element={<Login />} />
+            <Route path="/chats" element={<Chats />} />
+          </Routes>
+        </AuthenticationProvider>
+      </Router>
+    </div>
   )
 }
 
 export default App;
+
+// With this configuration, the Login component will be rendered on the root route ("/") and the Chats component will be rendered on the "/chats" route. You can then use useNavigate hook to navigate between the routes in your components.
