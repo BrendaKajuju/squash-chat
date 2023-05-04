@@ -5,12 +5,12 @@ import { auth } from "../components/Firebase";
 import { useAuth } from "../context/AuthenticationContext"
 import axios from "axios";
 
-const Chats = () => {
+export default function Chats (){
+    const didMountRef = useRef(false);
     const navigate = useNavigate();
     const { user } = useAuth();
     const [loading, setLoading] = useState(true);
-
-
+    
     const handleLogout = async () => {
         await auth.signOut();
       
@@ -18,20 +18,23 @@ const Chats = () => {
     }
 
     const getFile = async (url) => {
-        const response = await fetch(url);
-        const data = await response.blob();
+        let response = await fetch(url);
+        let data = await response.blob();
 
         return new File([data], "userPhoto.jpg", { type: 'image/jpeg'})
     }
     useEffect(() => {
-        if (!user) {
+        if (!didMountRef.current) {
+            didMountRef.current = true;
+      
+        if (!user || user === null) {
             navigate('/');
         return;
         }
 
-        axios.get('https://api.chatengine.io/users/me', {
+        axios.get('https://api.chatengine.io/users/me/', {
             headers: {
-                "project-id": "b69d4304-d14a-49fb-a0ba-eaa0f17faaae",
+                "project-id": "8a0d44dd-97eb-426b-8a66-8e0a3ba12167",
                 "user-name": user.email,
                 "user-secret": user.uid,
             }
@@ -39,7 +42,7 @@ const Chats = () => {
         .then(() => {
             setLoading(false);
         })
-        .catch(() => {
+        .catch((event) => {
         let formdata = new FormData();
         formdata.append('email', user.email);
         formdata.append('username', user.email);
@@ -48,16 +51,16 @@ const Chats = () => {
         getFile(user.photoURL)
             .then((avatar) => {
                 formdata.append('avatar', avatar, avatar.name);
-                axios.post('https://api.chatengine.oi/users',
+                axios.post('https://api.chatengine.oi/users/',
                 formdata,
                 {
                     headers: { "private-key": "ae6128cc-c543-481d-be3d-a7cfd1a0ed2a" }
                 }
             )
             .then(() => setLoading(false))
-            .catch((error) => console.log(error))
+            .catch(event => console.log('event', event.response))
         })
-    })
+    })}
 }, [user, navigate])
     // if(!user || loading) return 'Loading';
     return (
@@ -73,12 +76,10 @@ const Chats = () => {
 
             <ChatEngine
                 height="calc(100vh - 66px)"
-                projectID="8a0d44dd-97eb-426b-8a66-8e0a3ba12167"
+                projectID='8a0d44dd-97eb-426b-8a66-8e0a3ba12167'
                 userName={user.email}
                 userSecret={user.uid}
             />
         </div>
     );
 }
-
-export default Chats;
