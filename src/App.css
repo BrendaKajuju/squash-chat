@@ -19,7 +19,9 @@
 .nav-bar {
   width: 100%;
   height: 66px;
-  background-color: hsl(345, 44%, 42%);
+  width: 100vw;
+  overflow-y: scroll;
+  background: linear-gradient(66deg, rgb(25, 118, 194) 0%, rgb(57, 66, 97) 50%, rgba(25, 36, 75, 0.8) 100%);
 }
 
 .logo-tab {
@@ -47,7 +49,7 @@
 /* Login Page */
 
 #login-page {
-  background-image: linear-gradient(#1807af, #E8B3B3);
+  background: linear-gradient(66deg, rgb(25, 118, 194) 0%, rgb(57, 66, 97) 50%, rgba(25, 36, 75, 0.8) 100%);
   position: absolute;
   top: 0px;
   bottom: 0px;
@@ -63,7 +65,7 @@
   padding-bottom: 66px;
   width: 420px;
   text-align: center;
-  background-color: white;
+  background: linear-gradient(66deg, rgb(25, 118, 194) 0%, rgb(52, 67, 122) 50%, rgba(25, 36, 75, 0.8) 100%);
   border-radius: 22px;
 }
 
