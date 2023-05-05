@@ -1,4 +1,3 @@
-import { useNavigate, useState, useEffect } from 'react'
 import {BrowserRouter  as Router, Routes, Route } from "react-router-dom"
 import './App.css'
 import { AuthenticationProvider } from './context/AuthenticationContext'
@@ -7,7 +6,7 @@ import Chats from "./components/Chats"
 
 function App() {
   return (
-    <div>
+    <div style={{ fontFamily: 'Avenir' }}>
       <Router>
         <AuthenticationProvider>
           <Routes>
