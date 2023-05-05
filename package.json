@@ -2,7 +2,6 @@
   "name": "squash_chat",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://squash-chat-c82jqj8tq-brendakajuju.vercel.app/",
   "type": "module",
   "scripts": {
     "dev": "vite",
